@@ -20,15 +20,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x10.6'
+          python-version: '3.10.6'
 
       - name: Install dependencies
         run: |
           python -m venv venv
-          source venv/bin/activate
+          . venv/bin/activate
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Install pre-commit hooks
         run: |
-          source venv/bin/activate
-          pytest  # Adjust this according to your testing tool
+          . venv/bin/activate
+          pre-commit install
+
+      - name: Run pre-commit hooks
+        run: |
+          . venv/bin/activate
+          pre-commit run --all-files
