@@ -32,3 +32,8 @@ A **RESTful API** to create and manage customized workout plans and track fitnes
     ```sh
     pre-commit install
     ```
+5. Run the Application
+
+    ```sh
+    python src/main.py
+    ```
