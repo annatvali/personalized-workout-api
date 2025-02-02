@@ -6,6 +6,6 @@ class Exercise(BaseModel):
     name: str
     description: str
     instructions: str
-    target_muscle: list[str]
+    target_muscles: list[str]
     difficulty: str
     category: str
