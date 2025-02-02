@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Excersise(BaseModel):
+class Exercise(BaseModel):
     id: int
     name: str
     description: str
