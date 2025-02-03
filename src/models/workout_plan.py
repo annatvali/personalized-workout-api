@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
@@ -19,3 +19,12 @@ class WorkoutPlan(BaseModel):
     goals: str
     exercises: List[PlannedExercise]
     daily_session_duration: int  # in minutes
+
+
+class WorkoutSession(BaseModel):
+    id: int
+    workout_plan_id: int
+    user_id: int
+    current_exercise_index: int
+    completed_exercises: List[int]  # exercise IDs
+    adjustments: Optional[str] = None
