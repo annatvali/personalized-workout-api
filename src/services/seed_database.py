@@ -6,6 +6,10 @@ from src.services.exercise_db import add_exercise
 
 
 def seed_exercises(db: Session):
+    # Clear existing data
+    db.query(ExerciseModel).delete()
+    db.commit()
+
     exercises = [
         ExerciseModel(
             id=1,
