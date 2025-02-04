@@ -8,7 +8,7 @@ from src.services.seed_database import seed_exercises
 
 
 @asynccontextmanager
-async def lifespan():
+async def lifespan(app: FastAPI):
     db = SessionLocal()
     seed_exercises(db)
     db.close()
