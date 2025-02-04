@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 
-from src.models.exercise import Exercise as ExerciseModel
-from src.services.database import Base, engine
+from src.services.database import Base
+from src.services.database import Exercise as ExerciseModel
+from src.services.database import engine
 from src.services.exercise_db import add_exercise
 
 
