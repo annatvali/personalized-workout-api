@@ -1,35 +1,50 @@
-from typing import List
+from sqlalchemy.orm import Session
 
-from src.models.exercise import Exercise
-
-exercises_db: List[Exercise] = []
-
-
-def get_exercises() -> List[Exercise]:
-    return exercises_db
+from src.models.exercise import Exercise as ExerciseModel
+from src.services.database import Exercise
 
 
-def add_exercise(exercise: Exercise) -> None:
-    exercises_db.append(exercise)
+def get_exercises(db: Session):
+    return db.query(Exercise).all()
 
 
-def get_exercise_by_id(exercise_id: int) -> Exercise | None:
-    for exercise in exercises_db:
-        if exercise.id == exercise_id:
-            return exercise
-    return None
+def add_exercise(db: Session, exercise: ExerciseModel):
+    db_exercise = Exercise(
+        id=exercise.id,
+        name=exercise.name,
+        description=exercise.description,
+        instructions=exercise.instructions,
+        target_muscles=",".join(exercise.target_muscles),
+        difficulty=exercise.difficulty,
+        category=exercise.category,
+    )
+    db.add(db_exercise)
+    db.commit()
+    db.refresh(db_exercise)
+    return db_exercise
 
 
-def update_exercise(exercise_id: int, updated_exercise: Exercise):
-    for index, exercise in enumerate(exercises_db):
-        if exercise.id == exercise_id:
-            exercises_db[index] = updated_exercise
-            return updated_exercise
-    return None
+def get_exercise_by_id(db: Session, exercise_id: int):
+    return db.query(Exercise).filter(Exercise.id == exercise_id).first()
 
 
-def delete_exercise(exercise_id: int) -> Exercise | None:
-    for index, exercise in enumerate(exercises_db):
-        if exercise.id == exercise_id:
-            return exercises_db.pop(index)
-    return None
+def update_exercise(db: Session, exercise_id: int, updated_exercise: ExerciseModel):
+    db_exercise = db.query(Exercise).filter(Exercise.id == exercise_id).first()
+    if db_exercise:
+        db_exercise.name = updated_exercise.name
+        db_exercise.description = updated_exercise.description
+        db_exercise.instructions = updated_exercise.instructions
+        db_exercise.target_muscles = ",".join(updated_exercise.target_muscles)
+        db_exercise.difficulty = updated_exercise.difficulty
+        db_exercise.category = updated_exercise.category
+        db.commit()
+        db.refresh(db_exercise)
+    return db_exercise
+
+
+def delete_exercise(db: Session, exercise_id: int):
+    db_exercise = db.query(Exercise).filter(Exercise.id == exercise_id).first()
+    if db_exercise:
+        db.delete(db_exercise)
+        db.commit()
+    return db_exercise
