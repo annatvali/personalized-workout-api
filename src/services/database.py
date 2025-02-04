@@ -33,6 +33,8 @@ class WorkoutPlan(Base):
     goals = Column(String)
     daily_session_duration = Column(Integer)
 
+    exercises = relationship("PlannedExercise", back_populates="workout_plan")
+
 
 class PlannedExercise(Base):
     __tablename__ = "planned_exercises"
