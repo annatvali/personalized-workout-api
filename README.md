@@ -35,5 +35,38 @@ A **RESTful API** to create and manage customized workout plans and track fitnes
 5. Run the Application
 
     ```sh
-    python src/main.py
+    uvicorn src.main:app --reload
     ```
+6. Access the API documentation
+
+    ```sh
+    # Open your web browser and navigate to
+
+    http://127.0.0.1:8000/docs
+
+    ```
+    or browse the following URL: [https://app.swaggerhub.com/apis/ANNTVALIASHVILI/fast-api/0.1.0](https://app.swaggerhub.com/apis/ANNTVALIASHVILI/fast-api/0.1.0)
+
+
+7. Docker Setup
+
+    1. Build and run the Docker container:
+
+    ```sh
+    docker-compose up --build
+    ```
+
+## Tech Stack
+
+- Backend Framework: Python with Flask/Django/**FastAPI**.
+- Database: PostgreSQL or **SQLite**.
+- Authentication: **JWT for API security**.
+- Version Control: **Git**, focusing on a clear and meaningful commit history.
+
+## Functionality
+
+- [x] **User Authentication**: Secure user authentication and authorization.
+- [x] **Predefined Exercises**: A database of predefined exercises.
+- [x] Personalized Workout Plans: Create and manage personalized workout plans.
+- [x] Progress Tracking: Track fitness goals and progress over time.
+- [x] API Documentation: Interactive API documentation with Swagger.
